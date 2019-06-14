@@ -11,11 +11,12 @@ You should implement a nodeJS server API communicating with this: https://reqres
 
 * DELETE http://localhost:3000/api/user/{userId}/avatar - This will remove the file from the FileSystem storage. When a new GET http://localhost:3000/api/user/{userId} comes in, it requires a new HTTP call to get image and has to save to the fileSystem (plain file).
 
+*We will run `npm start` to start server and check the results.*
 
-## How to start the server
+## Part two - implement a CRON job to scrap the users
+Use this: https://reqres.in/api/users?page={page} to get the list of users and store them into a file in JSON Format. Each 1 minute a cron job should scrap the next page and append users into existing file in JSON format.
 
-Make sure you have Node and NPM installed both with `node -v && npm -v`.
-Install packages with `npm install`.
-Run server with `npm run dev` for using **Nodemon**.
+*We will need to be able to run `npm run scrap` in order to start the cron and check the results.*
+
 
 ## Solution and things to take in a consideration
