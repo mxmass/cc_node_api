@@ -1,0 +1,29 @@
+{
+  "name": "node-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "development": "nodemon server.js",
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "Ilya Novikov",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.18.3",
+    "consign": "^0.1.6",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.3",
+    "fs": "0.0.1-security"
+  },
+  "devDependencies": {
+    "chai": "*",
+    "chai-http": "*",
+    "mocha": "^5.2.0",
+    "morgan": "*",
+    "nodemon": "*"
+  }
+}
