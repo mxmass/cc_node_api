@@ -20,3 +20,5 @@ Use this: https://reqres.in/api/users?page={page} to get the list of users and s
 
 
 ## Solution and things to take in a consideration
+
+All fixed except tests

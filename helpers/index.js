@@ -1,31 +1,16 @@
 const axios = require('axios');
 const fs = require('fs');
 
-function mustBeInArray(array, id) {
-  return new Promise((resolve, reject) => {
-    const row = array.find(r => r.id == id)
-    if (!row) {
-      reject({
-        message: 'ID is not good',
-        status: 404
-      })
-    }
-    resolve(row)
-  })
-}
-
-async function saveFile(filename, id, req, res) {
-  await axios.get(filename)
+async function saveBinaryFile(filename, id) {
+  const dest = './data/images/' + id +'.jpg';
+  return await axios.get(filename)
     .then(res => {
-      const buffer = Buffer.from(res.data, null);
-      fs.writeFileSync('../data/' + id +'.jpg', buffer);
+      const buffer = Buffer.from(res.data, 'binary');
+      fs.writeFileSync(dest, buffer);
+      return fs.readFileSync(dest, 'base64');
     })
     .catch(err => {
-      if (err.status) {
-        res.status(err.status).json({ message: err.message })
-      } else {
-        res.status(500).json({ message: err.message })
-      }
+      return err;
     })
 }
 
@@ -50,8 +35,7 @@ function getNumber(path) {
 }
 
 module.exports = {
-  mustBeInArray,
-  saveFile,
+  saveBinaryFile,
   storeJsonData,
   getNumber
 }
