@@ -14,16 +14,11 @@ function mustBeInArray(array, id) {
   })
 }
 
-async function saveFile(filename) {
-  const options = {
-    url: filename,
-    encoding: null
-  };
-
-  await axios.get(options)
-    .then(function (res) {
-      const buffer = Buffer.from(res, 'utf8');
-      fs.writeFileSync('../data', buffer);
+async function saveFile(filename, id, req, res) {
+  await axios.get(filename)
+    .then(res => {
+      const buffer = Buffer.from(res.data, null);
+      fs.writeFileSync('../data/' + id +'.jpg', buffer);
     })
     .catch(err => {
       if (err.status) {
@@ -34,7 +29,29 @@ async function saveFile(filename) {
     })
 }
 
+async function storeJsonData (uri, storage) {
+  await axios.get(uri)
+    .then(response => {
+      try {
+        const jsn = response.data;
+        fs.writeFileSync(storage, JSON.stringify(jsn));
+      }
+      catch(err) {
+        console.error(err);
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
+
+function getNumber(path) {
+  return fs.readdirSync(path).length
+}
+
 module.exports = {
   mustBeInArray,
-  saveFile
+  saveFile,
+  storeJsonData,
+  getNumber
 }
