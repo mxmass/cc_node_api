@@ -5,12 +5,13 @@ const fs = require('fs');
 const helper = require('../helpers');
 const m = require('../helpers/middlewares');
 
-const api_uri = 'https://reqres.in/api/users/';
+const source_api_uri = 'https://reqres.in/api/users/';
+const images_store = './data/images/';
 
 router.get('/:id', m.mustBeInteger, async (req, res) => {
   const id = req.params.id
 
-  await axios.get(api_uri + id)
+  await axios.get(source_api_uri + id)
   .then((response) =>
     res.json(response.data.data)
   )
@@ -26,9 +27,9 @@ router.get('/:id', m.mustBeInteger, async (req, res) => {
 router.get('/:id/avatar', m.mustBeInteger, async (req, res) => {
   const id = req.params.id
 
-  await axios.get(api_uri + id)
+  await axios.get(source_api_uri + id)
     .then((response) => {
-      const dest = './data/images/'+id+'.jpg';
+      const dest = images_store + id + '.jpg';
       let imageAsBase64 = '';
 
       if (fs.existsSync(dest)) {
@@ -37,7 +38,7 @@ router.get('/:id/avatar', m.mustBeInteger, async (req, res) => {
       } else {
         const avatar = response.data.data.avatar;
         (async () => {
-          imageAsBase64 = await helper.saveBinaryFile(avatar, id);
+          imageAsBase64 = await helper.saveBinaryFile(avatar, dest);
           res.end(imageAsBase64);
         })();
       }
@@ -52,15 +53,14 @@ router.get('/:id/avatar', m.mustBeInteger, async (req, res) => {
 })
 
 router.delete('/:id/avatar', m.mustBeInteger, async (req, res) => {
-  const dest = './data/images/'+req.params.id+'.jpg';
+  const filename = images_store + req.params.id + '.jpg';
 
-  if (fs.existsSync(dest)) {
-    fs.unlinkSync(dest);
+  if (fs.existsSync(filename)) {
+    fs.unlinkSync(filename);
     res.json( { status: 200, message: 'done' } )
   } else {
     res.json( { status: 400, message: 'nothing to delete' } );
   }
 })
-
 
 module.exports = router

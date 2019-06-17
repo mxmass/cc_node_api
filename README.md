@@ -1,7 +1,8 @@
-# Node JS
+# Node JS API and Cron code challenge
 
 ## Case
 
+### Part one
 You should implement a nodeJS server API communicating with this: https://reqres.in/ API. Your API should have three endpoints:
 * GET http://localhost:3000/api/user/{userId} - This will make a request to https://reqres.in/api/users/{userId} and returns an user JSON representation.
 
@@ -13,12 +14,7 @@ You should implement a nodeJS server API communicating with this: https://reqres
 
 *We will run `npm start` to start server and check the results.*
 
-## Part two - implement a CRON job to scrap the users
+### Part two - implement a CRON job to scrap the users
 Use this: https://reqres.in/api/users?page={page} to get the list of users and store them into a file in JSON Format. Each 1 minute a cron job should scrap the next page and append users into existing file in JSON format.
 
 *We will need to be able to run `npm run scrap` in order to start the cron and check the results.*
-
-
-## Solution and things to take in a consideration
-
-All fixed except tests

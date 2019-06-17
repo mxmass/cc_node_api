@@ -1,9 +1,9 @@
 const axios = require('axios');
 const fs = require('fs');
 
-async function saveBinaryFile(filename, id) {
-  const dest = './data/images/' + id +'.jpg';
-  return await axios.get(filename)
+async function saveBinaryFile(uri, filename) {
+  const dest = filename;
+  return await axios.get(uri)
     .then(res => {
       const buffer = Buffer.from(res.data, 'binary');
       fs.writeFileSync(dest, buffer);

@@ -26,6 +26,7 @@
     "chai-http": "*",
     "mocha": "^5.2.0",
     "morgan": "*",
-    "nodemon": "*"
+    "nodemon": "*",
+    "rimraf": "^2.6.3"
   }
 }
